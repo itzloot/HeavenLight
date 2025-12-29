@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Heaven Light</title>
 
 <style>
@@ -10,6 +10,7 @@
   --n1:#7f9cff;
   --n2:#c77dff;
   --n3:#4cc9f0;
+  --glow:0 0 20px rgba(127,156,255,.7);
 }
 
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;}
@@ -25,7 +26,6 @@ body{
       transparent 40px
     );
   color:#fff;
-  overflow-x:hidden;
 }
 
 /* HERO */
@@ -38,13 +38,7 @@ body{
   text-align:center;
   padding:40px 20px;
 }
-
-.welcome{
-  letter-spacing:4px;
-  color:#aaa;
-  animation:fadeIn 2s;
-}
-
+.welcome{letter-spacing:4px;color:#aaa;}
 h1{
   font-size:3rem;
   margin:10px 0 20px;
@@ -52,35 +46,23 @@ h1{
   background-size:300%;
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
-  animation:gradientMove 6s linear infinite;
+  animation:gradMove 6s linear infinite;
 }
-
-.hero p{
-  max-width:600px;
-  color:#ccc;
-  margin-bottom:30px;
-}
-
-/* RUNNING GRADIENT BUTTON */
+.hero p{max-width:600px;color:#ccc;margin-bottom:30px;}
 .join-btn{
   padding:15px 40px;
   border-radius:40px;
-  font-weight:bold;
   color:#000;
+  font-weight:bold;
   text-decoration:none;
   background:linear-gradient(90deg,var(--n1),var(--n2),var(--n3));
   background-size:300%;
-  animation:gradientMove 3s linear infinite;
+  animation:gradMove 3s linear infinite;
   box-shadow:0 0 40px rgba(140,120,255,.6);
 }
 
 /* SECTIONS */
-.section{
-  padding:90px 20px;
-  max-width:1100px;
-  margin:auto;
-}
-
+.section{padding:90px 20px;max-width:1100px;margin:auto;}
 .section h2{
   text-align:center;
   font-size:2.2rem;
@@ -90,13 +72,12 @@ h1{
   -webkit-text-fill-color:transparent;
 }
 
-/* COMMUNITY POWER */
+/* STATS */
 .stats{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
   gap:25px;
 }
-
 .stat{
   background:rgba(255,255,255,0.06);
   border:1px solid rgba(255,255,255,0.15);
@@ -105,200 +86,93 @@ h1{
   text-align:center;
   backdrop-filter:blur(10px);
 }
-
 .icon{
-  width:42px;
-  height:42px;
-  margin-bottom:15px;
-  stroke:var(--n3);
-  stroke-width:1.6;
-  fill:none;
+  width:42px;height:42px;margin-bottom:15px;
+  stroke:var(--n3);stroke-width:1.6;fill:none;
   filter:drop-shadow(0 0 10px var(--n3));
 }
-
 .stat h3{
-  font-size:2rem;
+  font-size:2.1rem;
   color:var(--n1);
+  text-shadow:0 0 15px rgba(127,156,255,.8);
 }
+.stat p{color:#bbb}
 
-.stat p{color:#bbb;}
-
-/* REVIEW SLIDER */
-.slider{
-  max-width:600px;
-  margin:auto;
-  overflow:hidden;
-}
-
-.slides{
-  display:flex;
-  animation:slideMove 18s infinite;
-}
-
-.review{
-  min-width:100%;
-  background:rgba(255,255,255,0.07);
-  border-radius:20px;
-  padding:30px;
-  text-align:center;
-}
-
-.review span{
-  color:gold;
-  letter-spacing:2px;
-  font-size:1.2rem;
-}
-
-/* STAR RATING (Google Play style) */
-.stars{
-  display:flex;
-  gap:10px;
-  justify-content:center;
-  font-size:2rem;
-  cursor:pointer;
-}
-
-.stars span{
-  color:#444;
-  transition:.2s;
-}
-
-.stars span.active,
-.stars span:hover,
-.stars span:hover ~ span{
-  color:#444;
-}
-
-.stars span:hover,
-.stars span.active{
-  color:gold;
-}
-
-/* FORM */
-form{
-  max-width:500px;
-  margin:auto;
-  display:flex;
-  flex-direction:column;
-  gap:15px;
-}
-
-input,textarea{
-  background:rgba(255,255,255,0.08);
-  border:1px solid rgba(255,255,255,0.2);
-  border-radius:12px;
-  padding:12px;
-  color:#fff;
-}
-
-textarea{height:120px;resize:none;}
-
-button{
-  padding:14px;
-  border-radius:30px;
-  border:none;
-  font-weight:bold;
-  background:linear-gradient(90deg,var(--n2),var(--n3));
+/* PULSE EFFECT */
+.pulse{
+  animation:pulseGlow .6s ease-out;
 }
 
 /* FOOTER */
-footer{
-  padding:40px;
-  text-align:center;
-  color:#777;
-}
+footer{padding:40px;text-align:center;color:#777}
 
 /* ANIMATIONS */
-@keyframes gradientMove{
+@keyframes gradMove{
   0%{background-position:0%}
   100%{background-position:300%}
 }
-@keyframes fadeIn{
-  from{opacity:0}
-  to{opacity:1}
-}
-@keyframes slideMove{
-  0%{transform:translateX(0)}
-  25%{transform:translateX(-100%)}
-  50%{transform:translateX(-200%)}
-  75%{transform:translateX(-300%)}
-  100%{transform:translateX(0)}
+@keyframes pulseGlow{
+  0%{text-shadow:none}
+  50%{text-shadow:var(--glow)}
+  100%{text-shadow:none}
 }
 </style>
 </head>
 
 <body>
 
-<audio id="hoverSound">
-  <source src="https://assets.mixkit.co/sfx/preview/mixkit-tech-click-1140.mp3">
-</audio>
-
 <section class="hero">
   <div class="welcome">WELCOME TO</div>
   <h1>Heaven Light</h1>
-  <p>A chill futuristic Discord community for hangout, events & giveaways.</p>
-  <a class="join-btn" href="https://discord.gg/BSWujNEeQt" target="_blank">Join Heaven Light</a>
+  <p>Chill futuristic Discord community for hangout, events & giveaways.</p>
+  <a class="join-btn" href="https://discord.gg/BSWujNEeQt" target="_blank">
+    Join Heaven Light
+  </a>
 </section>
 
 <section class="section">
 <h2>Community Power</h2>
+
 <div class="stats">
 
+<!-- MEMBERS (LIVE) -->
 <div class="stat">
 <svg class="icon" viewBox="0 0 24 24">
 <circle cx="12" cy="7" r="4"/><path d="M4 21c0-4 16-4 16 0"/>
 </svg>
-<h3 id="discordCount">...</h3><p>Members</p>
+<h3 id="members">0+</h3>
+<p>Total Members</p>
 </div>
 
+<!-- ONLINE -->
 <div class="stat">
 <svg class="icon" viewBox="0 0 24 24">
-<path d="M12 2l7 4v6c0 5-7 10-7 10s-7-5-7-10V6z"/>
+<circle cx="12" cy="12" r="9"/>
 </svg>
-<h3 data-count="20">0+</h3><p>Vouches</p>
+<h3 id="online">0+</h3>
+<p>Online</p>
 </div>
 
+<!-- OFFLINE -->
 <div class="stat">
 <svg class="icon" viewBox="0 0 24 24">
-<path d="M4 4h16v12H4z"/><path d="M2 20h20"/>
+<path d="M3 3l18 18"/><circle cx="12" cy="12" r="9"/>
 </svg>
-<h3 data-count="2">0+</h3><p>Events</p>
+<h3 id="offline">0+</h3>
+<p>Offline</p>
 </div>
 
+<!-- GIVEAWAYS -->
 <div class="stat">
 <svg class="icon" viewBox="0 0 24 24">
-<path d="M6 8h12l-1 12H7z"/><path d="M9 8V6a3 3 0 016 0v2"/>
+<path d="M6 8h12l-1 12H7z"/>
+<path d="M9 8V6a3 3 0 016 0v2"/>
 </svg>
-<h3 data-count="10">0+</h3><p>Giveaways</p>
+<h3 data-count="10">0+</h3>
+<p>Giveaways</p>
 </div>
 
 </div>
-</section>
-
-<section class="section">
-<h2>Community Reviews</h2>
-<div class="slider">
-  <div class="slides">
-    <div class="review"><span>★★★★★</span><p>Best chill server ever</p></div>
-    <div class="review"><span>★★★★★</span><p>Events are actually fun</p></div>
-    <div class="review"><span>★★★★☆</span><p>Friendly people & mods</p></div>
-    <div class="review"><span>★★★★★</span><p>Zero toxicity, love it</p></div>
-  </div>
-</div>
-</section>
-
-<section class="section">
-<h2>Submit Your Review</h2>
-
-<div class="stars" id="starRating">
-  <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
-</div>
-
-<form>
-<input placeholder="Your Name">
-<textarea placeholder="Your Review"></textarea>
-<button>Submit Review</button>
-</form>
 </section>
 
 <footer>
@@ -306,41 +180,57 @@ footer{
 </footer>
 
 <script>
-// hover sound
-const sound=document.getElementById("hoverSound");
-document.querySelectorAll(".stat,.join-btn,button").forEach(e=>{
-  e.addEventListener("mouseenter",()=>{
-    sound.currentTime=0; sound.volume=0.3; sound.play();
-  });
-});
-
-// animated counters
-document.querySelectorAll("[data-count]").forEach(el=>{
-  let t=+el.dataset.count,c=0;
-  const i=setInterval(()=>{
-    c++; el.textContent=c+"+";
-    if(c>=t) clearInterval(i);
-  },30);
-});
-
-// star rating
-let rating=0;
-document.querySelectorAll("#starRating span").forEach((s,i)=>{
-  s.onclick=()=>{
-    rating=i+1;
-    document.querySelectorAll("#starRating span").forEach((x,j)=>{
-      x.classList.toggle("active",j<i+1);
-    });
+/* ===== COUNT-UP WITH GLOW ===== */
+function animate(el,target){
+  let cur=0;
+  const step=Math.max(1,Math.floor(target/60));
+  const tick=()=>{
+    cur+=step;
+    if(cur<target){
+      el.textContent=cur+"+";
+      el.classList.add("pulse");
+      requestAnimationFrame(tick);
+    }else{
+      el.textContent=target+"+";
+      el.classList.add("pulse");
+      setTimeout(()=>el.classList.remove("pulse"),400);
+    }
   };
-});
+  tick();
+}
 
-// discord live count
+/* ===== SCROLL INTO VIEW ===== */
+const io=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      const el=e.target;
+      if(el.dataset.count){
+        animate(el,Number(el.dataset.count));
+      }
+      io.unobserve(el);
+    }
+  });
+},{threshold:.6});
+
+document.querySelectorAll("[data-count]").forEach(el=>io.observe(el));
+
+/* ===== DISCORD LIVE DATA ===== */
 fetch("https://discord.com/api/guilds/BSWujNEeQt/widget.json")
 .then(r=>r.json())
 .then(d=>{
-  document.getElementById("discordCount").textContent=d.presence_count+"+";
+  const online=d.presence_count || 0;
+  const total=d.members?.length || 100;
+  const offline=Math.max(total-online,0);
+
+  animate(document.getElementById("members"),total);
+  animate(document.getElementById("online"),online);
+  animate(document.getElementById("offline"),offline);
 })
-.catch(()=>{document.getElementById("discordCount").textContent="100+"});
+.catch(()=>{
+  animate(document.getElementById("members"),100);
+  animate(document.getElementById("online"),35);
+  animate(document.getElementById("offline"),65);
+});
 </script>
 
 </body>
