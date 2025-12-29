@@ -1,215 +1,313 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Heaven Light Ultra</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Heaven Light — Community</title>
+
 <style>
 :root{
-  --n1:#7f9cff; --n2:#c77dff; --n3:#4cc9f0; --glow:0 0 20px rgba(127,156,255,.7);
-  --bg-dark:#0a0a18;
+  --bg:#0b0b0e;
+  --card:#121217;
+  --border:#1f1f26;
+  --red:#ff2e2e;
+  --darkred:#b01818;
+  --text:#eaeaf0;
+  --muted:#9a9aa5;
 }
-*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;}
-body{background:var(--bg-dark);color:#fff;overflow-x:hidden;}
-canvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;}
+
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Inter,system-ui,Segoe UI,Roboto;
+  background:radial-gradient(circle at top, #1a0d0d, #000);
+  color:var(--text);
+}
+
+section{padding:80px 20px}
+.container{max-width:1100px;margin:auto}
+
+h1,h2,h3{margin:0 0 16px}
+h1{
+  font-size:clamp(2.2rem,5vw,3.4rem);
+  font-weight:800;
+  letter-spacing:-1px;
+}
+h2{
+  font-size:2.2rem;
+  background:linear-gradient(90deg,var(--red),#ff6b6b);
+  -webkit-background-clip:text;
+  color:transparent;
+}
+
+p{color:var(--muted);line-height:1.6}
 
 /* HERO */
-.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:40px 20px;}
-.welcome{letter-spacing:4px;color:#aaa;}
-h1{font-size:3rem;margin:10px 0 20px;background:linear-gradient(90deg,var(--n1),var(--n2),var(--n3));background-size:300%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:gradMove 6s linear infinite;}
-.hero p{max-width:600px;color:#ccc;margin-bottom:30px;}
-.join-btn{padding:15px 40px;border-radius:40px;color:#000;font-weight:bold;text-decoration:none;background:linear-gradient(90deg,var(--n1),var(--n2),var(--n3));background-size:300%;animation:gradMove 3s linear infinite;box-shadow:0 0 40px rgba(140,120,255,.6);cursor:pointer;transition:0.3s;}
-.join-btn:hover{transform:scale(1.08);}
+.hero{
+  text-align:center;
+  padding-top:120px;
+}
+.hero span{
+  color:var(--red);
+}
+.join-btn{
+  margin-top:30px;
+  display:inline-block;
+  padding:14px 32px;
+  border-radius:10px;
+  color:white;
+  text-decoration:none;
+  font-weight:600;
+  background:linear-gradient(90deg,var(--red),var(--darkred));
+}
 
-/* SECTIONS */
-.section{padding:90px 20px;max-width:1200px;margin:auto;}
-.section h2{text-align:center;font-size:2.2rem;margin-bottom:50px;background:linear-gradient(90deg,var(--n1),var(--n2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+/* GLASS CARD */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:20px;
+}
+.card{
+  background:linear-gradient(180deg,#121217,#0d0d12);
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:28px;
+  text-align:center;
+}
 
-/* CARDS */
-.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:25px;}
-.card{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.15);border-radius:22px;padding:35px 20px;text-align:center;backdrop-filter:blur(10px);cursor:pointer;transition:transform 0.3s;}
-.card:hover{transform:translateY(-5px);}
-.card svg{width:60px;height:60px;margin-bottom:15px;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;fill:none;filter:drop-shadow(0 0 12px currentColor);}
-.card h3{font-size:1.8rem;color:var(--n1);text-shadow:0 0 15px rgba(127,156,255,.8);}
-.card p{color:#bbb;}
+/* ICONS */
+.icon{
+  width:44px;height:44px;
+  margin:0 auto 12px;
+}
 
 /* STATS */
-.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:25px;margin-bottom:50px;}
-.stat{background:rgba(255,255,255,0.05);border-radius:22px;padding:25px;text-align:center;backdrop-filter:blur(8px);transition:transform 0.3s;cursor:pointer;}
-.stat:hover{transform:translateY(-5px);}
-.stat svg{width:60px;height:60px;margin-bottom:12px;filter:drop-shadow(0 0 12px currentColor);}
-.stat h3{font-size:2rem;color:#fff;margin-bottom:5px;}
-.stat p{color:#bbb;font-size:1rem;}
-.pulse{animation:pulseGlow .6s ease-out;}
+.stat{
+  font-size:2.4rem;
+  font-weight:800;
+}
+.label{color:var(--muted)}
 
-/* REVIEW SLIDER */
-.slider{max-width:600px;margin:auto;overflow:hidden;margin-bottom:50px;}
-.slides{display:flex;transition:0.5s ease;}
-.review{min-width:100%;background:rgba(255,255,255,0.07);border-radius:20px;padding:30px;text-align:center;margin-right:20px;}
-.review span{color:gold;letter-spacing:2px;font-size:1.2rem;}
-.stars{display:flex;gap:10px;justify-content:center;font-size:2rem;cursor:pointer;margin-bottom:20px;}
-.stars span{color:#444;transition:.2s;}
-.stars span.active,.stars span:hover,.stars span:hover ~ span{color:gold;}
-form{max-width:500px;margin:auto;display:flex;flex-direction:column;gap:15px;}
-input,textarea{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.2);border-radius:12px;padding:12px;color:#fff;}
-textarea{height:120px;resize:none;}
-button{padding:14px;border-radius:30px;border:none;font-weight:bold;background:linear-gradient(90deg,var(--n2),var(--n3)); cursor:pointer; color:#000;}
-footer{padding:40px;text-align:center;color:#777}
+/* COLORS */
+.blue{color:#3b82f6}
+.green{color:#22c55e}
+.red{color:#ef4444}
+.orange{color:#f97316}
+.pink{color:#ec4899}
 
-@keyframes gradMove{0%{background-position:0%}100%{background-position:300%}}
-@keyframes pulseGlow{0%{text-shadow:none}50%{text-shadow:0 0 12px #fff}100%{text-shadow:none}}
+/* REVIEWS */
+.reviews{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:16px;
+}
+.review{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:18px;
+}
+.stars span{
+  font-size:20px;
+  cursor:pointer;
+  color:#444;
+}
+.stars span.active{color:#facc15}
+
+/* FORM */
+form{
+  max-width:500px;
+  margin:40px auto 0;
+  display:grid;
+  gap:14px;
+}
+input,textarea{
+  background:#0f0f14;
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:12px;
+  color:white;
+}
+button{
+  background:linear-gradient(90deg,var(--red),var(--darkred));
+  border:none;
+  border-radius:10px;
+  padding:12px;
+  color:white;
+  font-weight:600;
+  cursor:pointer;
+}
+
+/* FOOTER */
+footer{
+  text-align:center;
+  padding:40px;
+  color:#666;
+}
 </style>
 </head>
 <body>
 
-<canvas id="particles"></canvas>
-
 <!-- HERO -->
 <section class="hero">
-  <div class="welcome">WELCOME TO</div>
-  <h1>Heaven Light Ultra</h1>
-  <p>Chill futuristic Discord community for hangout, events & giveaways.</p>
-  <a class="join-btn" href="https://discord.gg/BSWujNEeQt" target="_blank">Join Heaven Light</a>
+  <div class="container">
+    <h1>Welcome to <span>Heaven Light</span></h1>
+    <p>A calm, red-black community for chilling, events, and giveaways.</p>
+    <a class="join-btn" href="https://discord.gg/BSWujNEeQt" target="_blank">Join Discord</a>
+  </div>
 </section>
 
 <!-- ABOUT -->
-<section class="section">
-<h2>About Heaven Light</h2>
-<div class="cards">
+<section>
+  <div class="container grid">
+    <div class="card">
+      <svg class="icon blue" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 2a10 10 0 100 20 10 10 0 000-20z"/>
+      </svg>
+      <h3>Chill Community</h3>
+      <p>Hangout, vibe, talk freely without chaos.</p>
+    </div>
 
-<!-- Hangout & Chill (Chat Icon) -->
-<div class="card">
-<svg viewBox="0 0 24 24" stroke="#4cc9f0">
-  <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2z"/>
-</svg>
-<h3>Hangout & Chill</h3>
-<p>Relax with friends in our safe community.</p>
-</div>
+    <div class="card">
+      <svg class="icon orange" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M3 7h18v13H3zM7 7V5a5 5 0 0110 0v2"/>
+      </svg>
+      <h3>Events & Giveaways</h3>
+      <p>Frequent events with real rewards.</p>
+    </div>
 
-<!-- Events & Giveaways (Calendar Icon) -->
-<div class="card">
-<svg viewBox="0 0 24 24" stroke="#ff4dff">
-  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
-  <line x1="16" y1="2" x2="16" y2="6"/>
-  <line x1="8" y1="2" x2="8" y2="6"/>
-  <line x1="3" y1="10" x2="21" y2="10"/>
-</svg>
-<h3>Events & Giveaways</h3>
-<p>Participate in fun events and win prizes.</p>
-</div>
-
-<!-- Community Projects (Handbag Icon) -->
-<div class="card">
-<svg viewBox="0 0 24 24" stroke="#ff9800">
-  <path d="M6 7V6C6 4.343 7.343 3 9 3H15C16.657 3 18 4.343 18 6V7H21V20H3V7H6Z"/>
-  <path d="M8 6H16V7H8V6Z"/>
-</svg>
-<h3>Community Projects</h3>
-<p>Work together on server projects.</p>
-</div>
-
-</div>
+    <div class="card">
+      <svg class="icon pink" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M4 4h16v14H6l-2 2z"/>
+      </svg>
+      <h3>Active Chat</h3>
+      <p>Always someone online to talk.</p>
+    </div>
+  </div>
 </section>
 
 <!-- COMMUNITY POWER -->
-<section class="section">
-<h2>Community Power</h2>
-<div class="stats">
-  <!-- Members -->
-  <div class="stat">
-    <svg viewBox="0 0 64 64" stroke="#0a3f70">
-      <circle cx="32" cy="20" r="12"/>
-      <path d="M16 60c0-13 32-13 32 0"/>
-    </svg>
-    <h3 id="members">0+</h3>
-    <p>Members</p>
+<section>
+  <div class="container">
+    <h2>Community Power</h2>
+    <div class="grid">
+
+      <div class="card">
+        <svg class="icon blue" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 12a5 5 0 100-10 5 5 0 000 10z"/>
+          <path d="M2 22c0-5.5 4.5-8 10-8s10 2.5 10 8"/>
+        </svg>
+        <div class="stat" id="members">0</div>
+        <div class="label">Members</div>
+      </div>
+
+      <div class="card">
+        <svg class="icon green" viewBox="0 0 24 24" fill="currentColor">
+          <circle cx="12" cy="12" r="10"/>
+        </svg>
+        <div class="stat" id="online">0</div>
+        <div class="label">Online</div>
+      </div>
+
+      <div class="card">
+        <svg class="icon red" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+          <circle cx="12" cy="12" r="9"/>
+          <line x1="5" y1="5" x2="19" y2="19"/>
+        </svg>
+        <div class="stat" id="offline">0</div>
+        <div class="label">Offline</div>
+      </div>
+
+      <div class="card">
+        <svg class="icon orange" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M4 7h16v13H4zM8 7V5a4 4 0 018 0v2"/>
+        </svg>
+        <div class="stat">20+</div>
+        <div class="label">Vouches</div>
+      </div>
+
+      <div class="card">
+        <svg class="icon pink" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M4 7h16v13H4zM12 7V3"/>
+        </svg>
+        <div class="stat">10+</div>
+        <div class="label">Giveaways</div>
+      </div>
+
+    </div>
   </div>
-  <!-- Online -->
-  <div class="stat">
-    <svg viewBox="0 0 64 64" stroke="#00ff66">
-      <circle cx="32" cy="32" r="12">
-        <animate attributeName="r" values="12;16;12" dur="1.5s" repeatCount="indefinite"/>
-      </circle>
-    </svg>
-    <h3 id="online">0+</h3>
-    <p>Online</p>
-  </div>
-  <!-- Offline -->
-  <div class="stat">
-    <svg viewBox="0 0 64 64" stroke="#ff3b3b">
-      <circle cx="32" cy="32" r="12"/>
-      <line x1="20" y1="20" x2="44" y2="44"/>
-    </svg>
-    <h3 id="offline">0+</h3>
-    <p>Offline</p>
-  </div>
-  <!-- Vouches -->
-  <div class="stat">
-    <svg viewBox="0 0 64 64" stroke="#ff9800">
-      <path d="M32 4 L12 24 V44 C12 52 52 52 52 44 V24 L32 4 Z"/>
-      <path d="M22 32 L28 38 L42 24"/>
-    </svg>
-    <h3 data-count="20">0+</h3>
-    <p>Vouches</p>
-  </div>
-  <!-- Giveaways -->
-  <div class="stat">
-    <svg viewBox="0 0 64 64" stroke="#ff4dff">
-      <rect x="16" y="24" width="32" height="24"/>
-      <line x1="16" y1="24" x2="48" y2="24"/>
-      <line x1="32" y1="24" x2="32" y2="48"/>
-    </svg>
-    <h3 data-count="10">0+</h3>
-    <p>Giveaways</p>
-  </div>
-</div>
 </section>
 
 <!-- REVIEWS -->
-<section class="section">
-<h2>Community Reviews</h2>
-<div class="slider"><div class="slides" id="reviewSlides"></div></div>
-<h2>Submit Your Review</h2>
-<div class="stars" id="starRating"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
-<form id="reviewForm">
-<input placeholder="Your Name" required>
-<textarea placeholder="Your Review" required></textarea>
-<button type="submit">Submit Review</button>
-</form>
+<section>
+  <div class="container">
+    <h2>Community Reviews</h2>
+    <div class="reviews" id="reviewList"></div>
+
+    <form id="reviewForm">
+      <input id="name" placeholder="Your name" required>
+      <div class="stars" id="starSelect">
+        <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+      </div>
+      <textarea id="text" placeholder="Your review" required></textarea>
+      <button>Submit Review</button>
+    </form>
+  </div>
 </section>
 
-<footer>© 2025 Heaven Light — Built for the community.</footer>
+<footer>
+© 2025 Heaven Light — Built for the community
+</footer>
 
 <script>
-/* PARTICLES */
-const canvas=document.getElementById("particles");
-const ctx=canvas.getContext("2d");
-let w=canvas.width=window.innerWidth,h=canvas.height=window.innerHeight;
-window.addEventListener("resize",()=>{w=canvas.width=window.innerWidth;h=canvas.height=window.innerHeight;});
-let particles=[];for(let i=0;i<120;i++){particles.push({x:Math.random()*w,y:Math.random()*h,r:Math.random()*2+1,dx:(Math.random()-0.5)*0.5,dy:(Math.random()-0.5)*0.5});}
-function draw(){ctx.clearRect(0,0,w,h);particles.forEach(p=>{ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle="rgba(127,156,255,0.4)";ctx.fill();p.x+=p.dx;p.y+=p.dy;if(p.x<0||p.x>w)p.dx*=-1;if(p.y<0||p.y>h)p.dy*=-1;});requestAnimationFrame(draw);}draw();
+/* DISCORD STATS */
+fetch("https://discord.com/api/guilds/1454782340948689014/widget.json")
+.then(r=>r.json())
+.then(d=>{
+  const total=d.members.length;
+  const online=d.members.filter(m=>m.status!=="offline").length;
+  document.getElementById("members").textContent=total;
+  document.getElementById("online").textContent=online;
+  document.getElementById("offline").textContent=total-online;
+});
 
-/* COUNT-UP */
-function animate(el,target){let cur=0;const step=Math.max(1,Math.floor(target/60));const tick=()=>{cur+=step;if(cur<target){el.textContent=cur+"+";el.classList.add("pulse");requestAnimationFrame(tick);}else{el.textContent=target+"+";el.classList.add("pulse");setTimeout(()=>el.classList.remove("pulse"),400);}};tick();}
-const io=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){const el=e.target;if(el.dataset.count)animate(el,Number(el.dataset.count));io.unobserve(el);}}),{threshold:.6}});
-document.querySelectorAll("[data-count]").forEach(el=>io.observe(el));
+/* REVIEWS */
+let rating=0;
+const stars=document.querySelectorAll("#starSelect span");
+stars.forEach((s,i)=>{
+  s.onclick=()=>{
+    rating=i+1;
+    stars.forEach((x,j)=>x.classList.toggle("active",j<=i));
+  }
+});
 
-animate(document.getElementById("members"),120);
-animate(document.getElementById("online"),45);
-animate(document.getElementById("offline"),75);
-animate(document.querySelector("[data-count='20']"),20);
-animate(document.querySelector("[data-count='10']"),10);
-
-/* REVIEW SLIDER */
-const reviewSlides=document.getElementById("reviewSlides");
-const reviews=[{name:"Alice",rating:5,comment:"Love this community!"},{name:"Bob",rating:4,comment:"Great events and giveaways."},{name:"Charlie",rating:5,comment:"Super chill and futuristic vibe."}];
-function loadReviews(){reviewSlides.innerHTML="";reviews.forEach(r=>{const div=document.createElement("div");div.className="review";div.innerHTML=`<span>${"★".repeat(r.rating)}</span><p>${r.comment}</p>`;reviewSlides.appendChild(div);});}
+const list=document.getElementById("reviewList");
+function loadReviews(){
+  list.innerHTML="";
+  (JSON.parse(localStorage.getItem("reviews")||"[]")).forEach(r=>{
+    list.innerHTML+=`
+    <div class="review">
+      <strong>${r.name}</strong><br>
+      ${"★".repeat(r.rating)}<br>
+      <p>${r.text}</p>
+    </div>`;
+  });
+}
 loadReviews();
 
-/* SUBMIT REVIEW */
-let rating=5;
-document.querySelectorAll("#starRating span").forEach((s,i)=>{s.onclick=()=>{rating=i+1;document.querySelectorAll("#starRating span").forEach((x,j)=>x.classList.toggle("active",j<=i));};});
-document.getElementById("reviewForm").addEventListener("submit",e=>{e.preventDefault();const name=e.target[0].value;const comment=e.target[1].value;reviews.push({name,comment,rating});loadReviews();e.target.reset();rating=5;document.querySelectorAll("#starRating span").forEach(x=>x.classList.remove("active"));});
+document.getElementById("reviewForm").onsubmit=e=>{
+  e.preventDefault();
+  const reviews=JSON.parse(localStorage.getItem("reviews")||"[]");
+  reviews.unshift({
+    name:name.value,
+    rating,
+    text:text.value
+  });
+  localStorage.setItem("reviews",JSON.stringify(reviews));
+  e.target.reset();
+  stars.forEach(s=>s.classList.remove("active"));
+  loadReviews();
+};
 </script>
 
 </body>
