@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Heaven Light</title>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Segoe UI',system-ui,sans-serif;
+}
+
+body{
+  background:#05050c;
+  color:#fff;
+  overflow-x:hidden;
+}
+
+/* ===== BACKGROUND ===== */
+.bg-grid{
+  position:fixed;
+  inset:0;
+  background:
+    radial-gradient(circle at 15% 10%, rgba(120,100,255,.25), transparent 40%),
+    radial-gradient(circle at 85% 20%, rgba(0,200,255,.25), transparent 40%),
+    linear-gradient(transparent 96%, rgba(120,120,255,.08) 97%),
+    linear-gradient(90deg, transparent 96%, rgba(120,120,255,.08) 97%);
+  background-size:auto,auto,60px 60px,60px 60px;
+  animation:gridMove 22s linear infinite;
+  z-index:-2;
+}
+
+@keyframes gridMove{
+  to{background-position:120px 120px}
+}
+
+.scanline{
+  position:fixed;
+  inset:0;
+  background:linear-gradient(transparent 98%, rgba(255,255,255,.03) 100%);
+  background-size:100% 4px;
+  pointer-events:none;
+  opacity:.25;
+}
+
+/* ===== WELCOME TEXT ===== */
+.welcome{
+  padding:18px;
+  text-align:center;
+  font-size:1rem;
+  color:#cfd3ff;
+  letter-spacing:.5px;
+}
+
+.welcome span{
+  background:linear-gradient(90deg,#7f9cff,#c77dff,#4cc9f0);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  animation:glow 3s ease-in-out infinite;
+}
+
+@keyframes glow{
+  0%,100%{text-shadow:0 0 15px rgba(140,120,255,.4)}
+  50%{text-shadow:0 0 35px rgba(140,120,255,.8)}
+}
+
+/* ===== COMMON ===== */
+.section{
+  padding:100px 20px;
+  max-width:1200px;
+  margin:auto;
+}
+
+p{
+  color:#cfd3ff;
+  max-width:760px;
+  margin:0 auto 35px;
+  font-size:1.1rem;
+  line-height:1.6;
+}
+
+/* ===== HEADINGS ===== */
+.cyber{
+  font-size:3.2rem;
+  text-align:center;
+  margin-bottom:25px;
+  background:linear-gradient(90deg,#7f9cff,#c77dff,#4cc9f0);
+  background-size:300%;
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  animation:gradientFlow 6s linear infinite;
+  text-shadow:
+    0 0 25px rgba(140,120,255,.5),
+    0 0 60px rgba(100,200,255,.25);
+}
+
+@keyframes gradientFlow{
+  to{background-position:300%}
+}
+
+/* ===== HERO ===== */
+.hero{
+  min-height:90vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  text-align:center;
+  padding:40px 20px;
+}
+
+/* ===== BUTTON ===== */
+.btn{
+  position:relative;
+  display:inline-block;
+  padding:16px 42px;
+  border-radius:40px;
+  font-weight:800;
+  color:#000;
+  text-decoration:none;
+  background:linear-gradient(90deg,#7f9cff,#c77dff,#4cc9f0,#7f9cff);
+  background-size:300%;
+  animation:gradientFlow 4s linear infinite;
+  box-shadow:0 0 30px rgba(140,120,255,.7),0 0 80px rgba(100,200,255,.3);
+}
+
+.btn::after{
+  content:"";
+  position:absolute;
+  inset:-3px;
+  border-radius:inherit;
+  background:inherit;
+  filter:blur(15px);
+  opacity:.6;
+  z-index:-1;
+}
+
+/* ===== STATS ===== */
+.stats{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:30px;
+}
+
+.stat{
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(140,120,255,.25);
+  border-radius:24px;
+  padding:35px;
+  text-align:center;
+  backdrop-filter:blur(10px);
+  transition:.3s;
+}
+
+.stat:hover{
+  transform:translateY(-10px);
+  box-shadow:0 0 60px rgba(140,120,255,.35);
+}
+
+.stat svg{
+  width:40px;
+  height:40px;
+  margin-bottom:15px;
+  fill:#9aa8ff;
+  filter:drop-shadow(0 0 10px rgba(140,120,255,.8));
+}
+
+.stat h3{
+  font-size:2.4rem;
+  color:#9aa8ff;
+}
+
+/* ===== CARDS ===== */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:30px;
+}
+
+.card{
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(140,120,255,.25);
+  border-radius:24px;
+  padding:30px;
+  backdrop-filter:blur(10px);
+  transition:.35s;
+}
+
+.card:hover{
+  transform:translateY(-12px) scale(1.02);
+  box-shadow:0 0 70px rgba(140,120,255,.35);
+}
+
+.username{
+  color:#9aa8ff;
+  font-weight:700;
+  margin-bottom:6px;
+}
+
+.stars{
+  color:#ffd166;
+  margin-bottom:12px;
+}
+
+/* ===== FORM ===== */
+form{
+  max-width:520px;
+  margin:50px auto 0;
+  display:flex;
+  flex-direction:column;
+  gap:16px;
+}
+
+input,textarea,select{
+  padding:14px;
+  border-radius:14px;
+  border:none;
+  background:#0d0d1f;
+  color:#fff;
+}
+
+/* ===== FOOTER ===== */
+footer{
+  padding:40px;
+  text-align:center;
+  color:#777;
+}
+</style>
+</head>
+
+<body>
+
+<div class="bg-grid"></div>
+<div class="scanline"></div>
+
+<!-- WELCOME -->
+<div class="welcome">
+  <span id="welcomeText"></span>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <h1 class="cyber">Heaven Light</h1>
+  <p>
+    A chill & futuristic community server for hangout,
+    events, giveaways, and good vibes.
+  </p>
+  <a class="btn" href="https://discord.gg/BSWujNEeQt" target="_blank">
+    Join Heaven Light
+  </a>
+</section>
+
+<!-- STATS -->
+<section class="section">
+  <h2 class="cyber">Community Power</h2>
+  <div class="stats">
+
+    <div class="stat">
+      <svg viewBox="0 0 24 24">
+        <path d="M16 11c1.7 0 3-1.3 3-3s-1.3-3-3-3-3 1.3-3 3 1.3 3 3 3Zm-8 0c1.7 0 3-1.3 3-3S9.7 5 8 5 5 6.3 5 8s1.3 3 3 3Zm0 2c-2.7 0-8 1.3-8 4v2h10v-2c0-1.5.8-2.8 2-3.7-1.1-.2-2.4-.3-4-.3Zm8 0c-.3 0-.6 0-.9.1 1.2.9 1.9 2.2 1.9 3.6v2h6v-2c0-2.7-5.3-4-7-4Z"/>
+      </svg>
+      <h3>100+</h3>
+      <p>Members</p>
+    </div>
+
+    <div class="stat">
+      <svg viewBox="0 0 24 24">
+        <path d="M12 2 1 21h22L12 2Zm0 15h-1v-1h2v1h-1Zm1-4h-2V9h2v4Z"/>
+      </svg>
+      <h3>20+</h3>
+      <p>Vouches</p>
+    </div>
+
+    <div class="stat">
+      <svg viewBox="0 0 24 24">
+        <path d="M12 3 4 9v12h16V9l-8-6Z"/>
+      </svg>
+      <h3>2+</h3>
+      <p>Events</p>
+    </div>
+
+    <div class="stat">
+      <svg viewBox="0 0 24 24">
+        <path d="M20 7h-4V5a2 2 0 0 0-2-2H10a2 2 0 0 0-2 2v2H4v13h16V7Zm-10-2h4v2h-4V5Z"/>
+      </svg>
+      <h3>10+</h3>
+      <p>Giveaways</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- WELCOME TEXT SCRIPT -->
+<script>
+const text = "Welcome to Heaven Light Official Website — a chill community server for hangout, events & giveaways.";
+let i = 0;
+const speed = 45;
+
+function typeText(){
+  if(i < text.length){
+    document.getElementById("welcomeText").textContent += text.charAt(i);
+    i++;
+    setTimeout(typeText, speed);
+  }
+}
+typeText();
+</script>
+
+<footer>
+© 2025 Heaven Light — Built for the community.
+</footer>
+
+</body>
+</html>
