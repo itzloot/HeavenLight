@@ -1,236 +1,199 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
+<meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Heaven Light</title>
-
+<title>Heaven Light Ultra</title>
 <style>
 :root{
-  --n1:#7f9cff;
-  --n2:#c77dff;
-  --n3:#4cc9f0;
-  --glow:0 0 20px rgba(127,156,255,.7);
+  --n1:#7f9cff; --n2:#c77dff; --n3:#4cc9f0; --glow:0 0 20px rgba(127,156,255,.7);
+  --bg-dark:#0a0a18;
 }
-
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;}
-
-body{
-  background:
-    radial-gradient(circle at top,#1a1a3a 0%,#000 70%),
-    repeating-linear-gradient(
-      0deg,
-      rgba(255,255,255,0.03) 0px,
-      rgba(255,255,255,0.03) 1px,
-      transparent 1px,
-      transparent 40px
-    );
-  color:#fff;
-}
+body{background:var(--bg-dark);color:#fff;overflow-x:hidden;}
+canvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;}
 
 /* HERO */
-.hero{
-  min-height:100vh;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  text-align:center;
-  padding:40px 20px;
-}
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:40px 20px;}
 .welcome{letter-spacing:4px;color:#aaa;}
-h1{
-  font-size:3rem;
-  margin:10px 0 20px;
-  background:linear-gradient(90deg,var(--n1),var(--n2),var(--n3));
-  background-size:300%;
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-  animation:gradMove 6s linear infinite;
-}
+h1{font-size:3rem;margin:10px 0 20px;background:linear-gradient(90deg,var(--n1),var(--n2),var(--n3));background-size:300%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:gradMove 6s linear infinite;}
 .hero p{max-width:600px;color:#ccc;margin-bottom:30px;}
-.join-btn{
-  padding:15px 40px;
-  border-radius:40px;
-  color:#000;
-  font-weight:bold;
-  text-decoration:none;
-  background:linear-gradient(90deg,var(--n1),var(--n2),var(--n3));
-  background-size:300%;
-  animation:gradMove 3s linear infinite;
-  box-shadow:0 0 40px rgba(140,120,255,.6);
-}
+.join-btn{padding:15px 40px;border-radius:40px;color:#000;font-weight:bold;text-decoration:none;background:linear-gradient(90deg,var(--n1),var(--n2),var(--n3));background-size:300%;animation:gradMove 3s linear infinite;box-shadow:0 0 40px rgba(140,120,255,.6);cursor:pointer;transition:0.3s;}
+.join-btn:hover{transform:scale(1.08);}
 
 /* SECTIONS */
-.section{padding:90px 20px;max-width:1100px;margin:auto;}
-.section h2{
-  text-align:center;
-  font-size:2.2rem;
-  margin-bottom:50px;
-  background:linear-gradient(90deg,var(--n1),var(--n2));
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-}
+.section{padding:90px 20px;max-width:1200px;margin:auto;}
+.section h2{text-align:center;font-size:2.2rem;margin-bottom:50px;background:linear-gradient(90deg,var(--n1),var(--n2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+
+/* CARDS */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:25px;}
+.card{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.15);border-radius:22px;padding:35px 20px;text-align:center;backdrop-filter:blur(10px);cursor:pointer;transition:transform 0.3s;}
+.card:hover{transform:translateY(-5px);}
+.card svg{width:50px;height:50px;margin-bottom:15px;stroke:var(--n3);stroke-width:1.6;fill:none;filter:drop-shadow(0 0 15px var(--n3));}
+.card h3{font-size:1.8rem;color:var(--n1);text-shadow:0 0 15px rgba(127,156,255,.8);}
+.card p{color:#bbb;}
 
 /* STATS */
-.stats{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:25px;
-}
-.stat{
-  background:rgba(255,255,255,0.06);
-  border:1px solid rgba(255,255,255,0.15);
-  border-radius:22px;
-  padding:35px 20px;
-  text-align:center;
-  backdrop-filter:blur(10px);
-}
-.icon{
-  width:42px;height:42px;margin-bottom:15px;
-  stroke:var(--n3);stroke-width:1.6;fill:none;
-  filter:drop-shadow(0 0 10px var(--n3));
-}
-.stat h3{
-  font-size:2.1rem;
-  color:var(--n1);
-  text-shadow:0 0 15px rgba(127,156,255,.8);
-}
-.stat p{color:#bbb}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:25px;margin-bottom:50px;}
+.stat{background:rgba(255,255,255,0.05);border-radius:22px;padding:25px;text-align:center;backdrop-filter:blur(8px);transition:transform 0.3s;cursor:pointer;}
+.stat:hover{transform:translateY(-5px);}
+.stat svg{width:60px;height:60px;margin-bottom:12px;filter:drop-shadow(0 0 12px currentColor);}
+.stat h3{font-size:2rem;color:#fff;margin-bottom:5px;}
+.stat p{color:#bbb;font-size:1rem;}
+.pulse{animation:pulseGlow .6s ease-out;}
 
-/* PULSE EFFECT */
-.pulse{
-  animation:pulseGlow .6s ease-out;
-}
-
-/* FOOTER */
+/* REVIEW SLIDER */
+.slider{max-width:600px;margin:auto;overflow:hidden;margin-bottom:50px;}
+.slides{display:flex;transition:0.5s ease;}
+.review{min-width:100%;background:rgba(255,255,255,0.07);border-radius:20px;padding:30px;text-align:center;margin-right:20px;}
+.review span{color:gold;letter-spacing:2px;font-size:1.2rem;}
+.stars{display:flex;gap:10px;justify-content:center;font-size:2rem;cursor:pointer;margin-bottom:20px;}
+.stars span{color:#444;transition:.2s;}
+.stars span.active,.stars span:hover,.stars span:hover ~ span{color:gold;}
+form{max-width:500px;margin:auto;display:flex;flex-direction:column;gap:15px;}
+input,textarea{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.2);border-radius:12px;padding:12px;color:#fff;}
+textarea{height:120px;resize:none;}
+button{padding:14px;border-radius:30px;border:none;font-weight:bold;background:linear-gradient(90deg,var(--n2),var(--n3)); cursor:pointer; color:#000;}
 footer{padding:40px;text-align:center;color:#777}
 
-/* ANIMATIONS */
-@keyframes gradMove{
-  0%{background-position:0%}
-  100%{background-position:300%}
-}
-@keyframes pulseGlow{
-  0%{text-shadow:none}
-  50%{text-shadow:var(--glow)}
-  100%{text-shadow:none}
-}
+@keyframes gradMove{0%{background-position:0%}100%{background-position:300%}}
+@keyframes pulseGlow{0%{text-shadow:none}50%{text-shadow:0 0 12px #fff}100%{text-shadow:none}}
 </style>
 </head>
-
 <body>
 
+<canvas id="particles"></canvas>
+
+<!-- HERO -->
 <section class="hero">
   <div class="welcome">WELCOME TO</div>
-  <h1>Heaven Light</h1>
+  <h1>Heaven Light Ultra</h1>
   <p>Chill futuristic Discord community for hangout, events & giveaways.</p>
-  <a class="join-btn" href="https://discord.gg/BSWujNEeQt" target="_blank">
-    Join Heaven Light
-  </a>
+  <a class="join-btn" href="https://discord.gg/BSWujNEeQt" target="_blank">Join Heaven Light</a>
 </section>
 
+<!-- ABOUT -->
+<section class="section">
+<h2>About Heaven Light</h2>
+<div class="cards">
+<div class="card">
+<svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="28"/></svg>
+<h3>Hangout & Chill</h3>
+<p>Relax with friends in our safe community.</p>
+</div>
+<div class="card">
+<svg viewBox="0 0 64 64"><path d="M32 4 L12 24 H52 Z"/></svg>
+<h3>Events & Giveaways</h3>
+<p>Participate in fun events and win prizes.</p>
+</div>
+<div class="card">
+<svg viewBox="0 0 64 64"><path d="M32 2 L44 20 H20 Z"/><path d="M12 52 H52 V44 H12 Z"/></svg>
+<h3>Community Projects</h3>
+<p>Work together on server projects.</p>
+</div>
+</div>
+</section>
+
+<!-- COMMUNITY POWER -->
 <section class="section">
 <h2>Community Power</h2>
-
 <div class="stats">
-
-<!-- MEMBERS (LIVE) -->
-<div class="stat">
-<svg class="icon" viewBox="0 0 24 24">
-<circle cx="12" cy="7" r="4"/><path d="M4 21c0-4 16-4 16 0"/>
-</svg>
-<h3 id="members">0+</h3>
-<p>Total Members</p>
-</div>
-
-<!-- ONLINE -->
-<div class="stat">
-<svg class="icon" viewBox="0 0 24 24">
-<circle cx="12" cy="12" r="9"/>
-</svg>
-<h3 id="online">0+</h3>
-<p>Online</p>
-</div>
-
-<!-- OFFLINE -->
-<div class="stat">
-<svg class="icon" viewBox="0 0 24 24">
-<path d="M3 3l18 18"/><circle cx="12" cy="12" r="9"/>
-</svg>
-<h3 id="offline">0+</h3>
-<p>Offline</p>
-</div>
-
-<!-- GIVEAWAYS -->
-<div class="stat">
-<svg class="icon" viewBox="0 0 24 24">
-<path d="M6 8h12l-1 12H7z"/>
-<path d="M9 8V6a3 3 0 016 0v2"/>
-</svg>
-<h3 data-count="10">0+</h3>
-<p>Giveaways</p>
-</div>
-
+  <!-- Members -->
+  <div class="stat">
+    <svg viewBox="0 0 64 64">
+      <circle cx="32" cy="20" r="12" stroke="#0a3f70" stroke-width="3" fill="none"/>
+      <path d="M16 60c0-13 32-13 32 0" stroke="#0a3f70" stroke-width="3" fill="none"/>
+    </svg>
+    <h3 id="members">0+</h3>
+    <p>Members</p>
+  </div>
+  <!-- Online -->
+  <div class="stat">
+    <svg viewBox="0 0 64 64">
+      <circle cx="32" cy="32" r="12" stroke="#00ff66" stroke-width="4" fill="none">
+        <animate attributeName="r" values="12;16;12" dur="1.5s" repeatCount="indefinite"/>
+      </circle>
+    </svg>
+    <h3 id="online">0+</h3>
+    <p>Online</p>
+  </div>
+  <!-- Offline -->
+  <div class="stat">
+    <svg viewBox="0 0 64 64">
+      <circle cx="32" cy="32" r="12" stroke="#ff3b3b" stroke-width="4" fill="none"/>
+      <line x1="20" y1="20" x2="44" y2="44" stroke="#ff3b3b" stroke-width="4"/>
+    </svg>
+    <h3 id="offline">0+</h3>
+    <p>Offline</p>
+  </div>
+  <!-- Vouches -->
+  <div class="stat">
+    <svg viewBox="0 0 64 64">
+      <path d="M32 4 L12 24 V44 C12 52 52 52 52 44 V24 L32 4 Z" stroke="#ff9800" stroke-width="3" fill="none"/>
+      <path d="M22 32 L28 38 L42 24" stroke="#ff9800" stroke-width="3" fill="none"/>
+    </svg>
+    <h3 data-count="20">0+</h3>
+    <p>Vouches</p>
+  </div>
+  <!-- Giveaways -->
+  <div class="stat">
+    <svg viewBox="0 0 64 64">
+      <rect x="16" y="24" width="32" height="24" stroke="#ff4dff" stroke-width="3" fill="none"/>
+      <line x1="16" y1="24" x2="48" y2="24" stroke="#ff4dff" stroke-width="3"/>
+      <line x1="32" y1="24" x2="32" y2="48" stroke="#ff4dff" stroke-width="3"/>
+    </svg>
+    <h3 data-count="10">0+</h3>
+    <p>Giveaways</p>
+  </div>
 </div>
 </section>
 
-<footer>
-© 2025 Heaven Light — Built for the community.
-</footer>
+<!-- REVIEWS -->
+<section class="section">
+<h2>Community Reviews</h2>
+<div class="slider"><div class="slides" id="reviewSlides"></div></div>
+<h2>Submit Your Review</h2>
+<div class="stars" id="starRating"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+<form id="reviewForm">
+<input placeholder="Your Name" required>
+<textarea placeholder="Your Review" required></textarea>
+<button type="submit">Submit Review</button>
+</form>
+</section>
+
+<footer>© 2025 Heaven Light — Built for the community.</footer>
 
 <script>
-/* ===== COUNT-UP WITH GLOW ===== */
-function animate(el,target){
-  let cur=0;
-  const step=Math.max(1,Math.floor(target/60));
-  const tick=()=>{
-    cur+=step;
-    if(cur<target){
-      el.textContent=cur+"+";
-      el.classList.add("pulse");
-      requestAnimationFrame(tick);
-    }else{
-      el.textContent=target+"+";
-      el.classList.add("pulse");
-      setTimeout(()=>el.classList.remove("pulse"),400);
-    }
-  };
-  tick();
-}
+/* PARTICLES */
+const canvas=document.getElementById("particles");
+const ctx=canvas.getContext("2d");
+let w=canvas.width=window.innerWidth,h=canvas.height=window.innerHeight;
+window.addEventListener("resize",()=>{w=canvas.width=window.innerWidth;h=canvas.height=window.innerHeight;});
+let particles=[];for(let i=0;i<120;i++){particles.push({x:Math.random()*w,y:Math.random()*h,r:Math.random()*2+1,dx:(Math.random()-0.5)*0.5,dy:(Math.random()-0.5)*0.5});}
+function draw(){ctx.clearRect(0,0,w,h);particles.forEach(p=>{ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle="rgba(127,156,255,0.4)";ctx.fill();p.x+=p.dx;p.y+=p.dy;if(p.x<0||p.x>w)p.dx*=-1;if(p.y<0||p.y>h)p.dy*=-1;});requestAnimationFrame(draw);}draw();
 
-/* ===== SCROLL INTO VIEW ===== */
-const io=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{
-    if(e.isIntersecting){
-      const el=e.target;
-      if(el.dataset.count){
-        animate(el,Number(el.dataset.count));
-      }
-      io.unobserve(el);
-    }
-  });
-},{threshold:.6});
-
+/* COUNT-UP */
+function animate(el,target){let cur=0;const step=Math.max(1,Math.floor(target/60));const tick=()=>{cur+=step;if(cur<target){el.textContent=cur+"+";el.classList.add("pulse");requestAnimationFrame(tick);}else{el.textContent=target+"+";el.classList.add("pulse");setTimeout(()=>el.classList.remove("pulse"),400);}};tick();}
+const io=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){const el=e.target;if(el.dataset.count)animate(el,Number(el.dataset.count));io.unobserve(el);}}),{threshold:.6}});
 document.querySelectorAll("[data-count]").forEach(el=>io.observe(el));
 
-/* ===== DISCORD LIVE DATA ===== */
-fetch("https://discord.com/api/guilds/BSWujNEeQt/widget.json")
-.then(r=>r.json())
-.then(d=>{
-  const online=d.presence_count || 0;
-  const total=d.members?.length || 100;
-  const offline=Math.max(total-online,0);
+/* FAKE STATS */
+animate(document.getElementById("members"),120);
+animate(document.getElementById("online"),45);
+animate(document.getElementById("offline"),75);
+animate(document.querySelector("[data-count='20']"),20);
+animate(document.querySelector("[data-count='10']"),10);
 
-  animate(document.getElementById("members"),total);
-  animate(document.getElementById("online"),online);
-  animate(document.getElementById("offline"),offline);
-})
-.catch(()=>{
-  animate(document.getElementById("members"),100);
-  animate(document.getElementById("online"),35);
-  animate(document.getElementById("offline"),65);
-});
+/* REVIEW SLIDER */
+const reviewSlides=document.getElementById("reviewSlides");
+const reviews=[{name:"Alice",rating:5,comment:"Love this community!"},{name:"Bob",rating:4,comment:"Great events and giveaways."},{name:"Charlie",rating:5,comment:"Super chill and futuristic vibe."}];
+function loadReviews(){reviewSlides.innerHTML="";reviews.forEach(r=>{const div=document.createElement("div");div.className="review";div.innerHTML=`<span>${"★".repeat(r.rating)}</span><p>${r.comment}</p>`;reviewSlides.appendChild(div);});}
+loadReviews();
+
+/* SUBMIT REVIEW */
+let rating=5;
+document.querySelectorAll("#starRating span").forEach((s,i)=>{s.onclick=()=>{rating=i+1;document.querySelectorAll("#starRating span").forEach((x,j)=>x.classList.toggle("active",j<=i));};});
+document.getElementById("reviewForm").addEventListener("submit",e=>{e.preventDefault();const name=e.target[0].value;const comment=e.target[1].value;reviews.push({name,comment,rating});loadReviews();e.target.reset();rating=5;document.querySelectorAll("#starRating span").forEach(x=>x.classList.remove("active"));});
 </script>
 
 </body>
